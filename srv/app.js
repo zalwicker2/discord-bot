@@ -80,7 +80,7 @@ async function AddVote(userid, correct, username, avatar) {
 
             db.run(`
                 UPDATE votes 
-                SET score='${score}', streak='${streak}'
+                SET score='${score}', streak='${streak}', username='${username}', avatar='${avatar}'
                 WHERE userid='${userid}'
                 `)
             res({ score, streak, oldPosition: playerRecord.position, addition: addition })
@@ -95,9 +95,9 @@ let emojinames = ['first_place', 'second_place', 'third_place', 'four', 'five', 
 app.post('/vote', async (req, res) => {
     const data = [];
     for (let i = 0; i < req.body.length; i++) {
-        const { userid, correct } = req.body[i];
+        const { userid, correct, username, avatar } = req.body[i];
         let { score, streak, oldPosition, addition } = await AddVote(userid, correct)
-        data[userid] = { score, streak, username, oldPosition, addition };
+        data[userid] = { score, streak, username, oldPosition, addition, avatar };
     }
 
     const leaderboard = await GrabLeaderboard();
