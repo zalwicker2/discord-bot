@@ -19,7 +19,7 @@ client.once('ready', () => {
 
     client.on('messageReactionAdd', (event, user) => {
         console.log(user);
-        fetch('http://localhost:8080/vote', {
+        fetch('https://discord-bot.zalwicker.dev/api/vote', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
